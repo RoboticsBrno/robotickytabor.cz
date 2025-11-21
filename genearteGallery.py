@@ -98,7 +98,8 @@ $('.js--add-dynamic-{year}').on('click', function (e) {{
     for i, image in enumerate(images_info):
         img_path = os.path.join(img_output_folder, image)
         thumb_path = os.path.join(thumb_output_folder, image)
-        list_item = f'            <li><a href="{img_path}" data-imagelightbox="h"><img src="{thumb_path}" alt=" " loading="lazy"/></a></li>'
+        list_item = f'            <li><a href="{
+            img_path}" data-imagelightbox="h"><img src="{thumb_path}" alt=" " loading="lazy"/></a></li>'
         if i < 5:
             main_items += list_item + "\n"
         else:
@@ -114,7 +115,7 @@ $('.js--add-dynamic-{year}').on('click', function (e) {{
 
 
 if __name__ == "__main__":
-    year = "2024"
+    year = "2025"
     input_folder = f"original/{year}"
     img_output_folder = f"img/{year}"
     thumb_output_folder = f"thumb/{year}"
