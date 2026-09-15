@@ -38,8 +38,7 @@ def process_images(input_folder, img_output_folder, thumb_output_folder, prefix)
         ):
             file_path = os.path.join(input_folder, filename)
             date_taken = get_date_taken(file_path)
-            if date_taken:
-                images_info.append((date_taken, file_path))
+            images_info.append((date_taken or filename, file_path))
 
     images_info.sort()  # Sort by date_taken, oldest first
 
@@ -115,7 +114,7 @@ $('.js--add-dynamic-{year}').on('click', function (e) {{
 
 
 if __name__ == "__main__":
-    year = "2025"
+    year = "2026"
     input_folder = f"original/{year}"
     img_output_folder = f"img/{year}"
     thumb_output_folder = f"thumb/{year}"
