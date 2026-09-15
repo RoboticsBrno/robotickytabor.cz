@@ -7,9 +7,8 @@ def get_date_taken(path):
     try:
         image = Image.open(path)
         exif_data = image._getexif()
-        for tag, value in exif_data.items():
-            decoded_tag = TAGS.get(tag, tag)
-            if decoded_tag == "DateTimeOriginal":
+        for tag, value in (exif_data or {}).items():
+            if TAGS.get(tag, tag) == "DateTimeOriginal":
                 return value
     except Exception as e:
         print(f"Error getting date from {path}: {e}")
@@ -37,14 +36,14 @@ def process_images(input_folder, img_output_folder, thumb_output_folder, prefix)
             (".png", ".jpg", ".jpeg", ".tiff", ".bmp", ".gif")
         ):
             file_path = os.path.join(input_folder, filename)
-            date_taken = get_date_taken(file_path)
-            images_info.append((date_taken or filename, file_path))
+            rank = int(filename.split("-", 1)[0])
+            images_info.append((get_date_taken(file_path), rank, file_path))
 
-    images_info.sort()  # Sort by date_taken, oldest first
+    images_info.sort(key=lambda image: (image[0] is None, image[0] or "", image[1]))
 
     index = 1
     processed_images = []
-    for date_taken, file_path in images_info:
+    for _, _, file_path in images_info:
         base_name = f"{prefix}-{index:04d}.jpg"
         img_output_path = os.path.join(img_output_folder, base_name)
         thumb_output_path = os.path.join(thumb_output_folder, base_name)
