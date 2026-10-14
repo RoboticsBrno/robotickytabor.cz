@@ -1,5 +1,7 @@
 <div class="featured-text text-center h-100">
-	{% if site.camp_settings.status == "signing" %}
+    {% if site.camp_settings.status == "preparing" %}
+        <h4>Už pro vás chystáme Robotický tábor {{ site.camp_settings.next_year }}!</h4>
+	{% elsif site.camp_settings.status == "signing" %}
 		<h4>Přihlašování na Robotický tábor {{ site.camp_settings.year }} je již v plném proudu!</h4>
 	{% elsif site.camp_settings.status == "upcoming" %}
 		<h4>Robotický tábor {{ site.camp_settings.year }} se nám blíží!</h4>
@@ -19,6 +21,7 @@
                 <b>Místo:</b> Sebranice u Litomyšle</br>
                 <b>Minimální věk:</b> 12 let</br>
             {% endif %}
+            Další informace budou zveřejněny před Vánoci.
 		{% else %}
 			<b>Termín:</b> {{ site.camp_settings.date }}</br>
 			<b>Místo:</b> Sebranice u Litomyšle</br>
